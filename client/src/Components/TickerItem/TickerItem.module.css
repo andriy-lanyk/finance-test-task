@@ -1,0 +1,35 @@
+.tickerItem__container {
+  position: relative;
+  height: 30px;
+  padding: 6px;
+  margin: 10px;
+  display: flex;
+  background-color: #fff;
+  border-radius: 10px;
+  color: #565656;
+  vertical-align: middle;
+}
+
+.tickerItem__increase {
+  box-shadow: inset 3px 7px 5px #8bc34a73;
+}
+
+.tickerItem__decrease {
+  box-shadow: inset 3px 7px 5px #fb707087;
+}
+
+.tickerItem__name {
+  width: 25%;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.tickerItem__elem {
+  width: 20%;
+  text-align: center;
+}
+
+.tickerItem__elem p {
+  font-size: 13px;
+  line-height: 20px;
+}
