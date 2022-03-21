@@ -1,14 +1,16 @@
-import style from './Button.module.css';
+import Button from '@mui/material/Button';
 
-export default function Button({ text, onClick, tickerCode }) {
+function ButtonUniversal({ text, onClick, tickerCode }) {
   return (
-    <button
-      type="submit"
+    <Button
+      variant="contained"
+      size="small"
       name={tickerCode}
-      className={style.Button}
       onClick={onClick}
     >
       {text}
-    </button>
+    </Button>
   );
 }
+
+export default ButtonUniversal;

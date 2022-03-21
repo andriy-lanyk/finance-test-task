@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import { tickersSelectors } from '../../Redux/tickers';
 
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -14,8 +17,9 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 
 import Filter from '../../Components/Filter';
-import TickersPrice from '../../Components/TickersList';
+import TickersList from '../../Components/TickersList';
 import ChangeIntervalForm from '../../Components/ChangeIntervalForm';
+import Loader from '../../Components/Loader';
 
 const drawerWidth = 260;
 
@@ -63,9 +67,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-export default function TickersView() {
+function TickersView() {
   const theme = useTheme();
   const [openFilter, setOpenFilter] = useState(false);
+  const tickersList = useSelector(tickersSelectors.getFilteredTickers);
+  const isFilterUsed = useSelector(tickersSelectors.getFilter);
 
   const handleDrawerOpen = () => {
     setOpenFilter(true);
@@ -76,7 +82,7 @@ export default function TickersView() {
   };
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
       <AppBar position="fixed" open={openFilter}>
         <Toolbar>
@@ -122,9 +128,17 @@ export default function TickersView() {
       </Drawer>
       <Main open={openFilter}>
         <DrawerHeader />
-        <TickersPrice />
-        <ChangeIntervalForm />
+        {!isFilterUsed && tickersList.length < 1 ? (
+          <Loader />
+        ) : (
+          <>
+            <TickersList />
+            <ChangeIntervalForm />
+          </>
+        )}
       </Main>
     </Box>
   );
 }
+
+export default TickersView;

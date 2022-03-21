@@ -1,8 +1,9 @@
 .tickers__container {
-  width: 380px;
+  width: 480px;
   margin: 0 auto;
 }
 
-.tickers__list {
-  padding: 0;
+.tickers__nothingFound {
+  text-align: center;
+  color: red;
 }

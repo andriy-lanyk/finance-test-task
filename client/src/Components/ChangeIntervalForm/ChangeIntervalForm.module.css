@@ -1,35 +1,20 @@
 .ChangeIntervalForm {
-  position: relative;
-  width: 300px;
-  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 460px;
   margin: 15px auto;
   padding: 15px;
-}
-
-.ChangeIntervalForm button {
-  display: block;
-  margin: 7px auto 0 auto;
-}
-
-.title {
-  text-align: center;
-  color: rgb(68, 68, 68);
-  margin: 0;
+  background-color: rgba(169, 175, 255, 0.6);
 }
 
 .ChangeIntervalForm__text {
   text-align: center;
-  color: rgb(68, 68, 68);
+  color: #212121;
 }
 
-input {
-  display: block;
-  margin: 5px auto;
-  border-color: rgb(223 223 223);
-  background-color: #fbf7f7;
-  outline: none;
-}
-
-.ChangeIntervalForm__input_error {
-  border-color: rgb(231, 97, 97);
+.input__container {
+  width: 40%;
+  margin: 15px 0;
 }

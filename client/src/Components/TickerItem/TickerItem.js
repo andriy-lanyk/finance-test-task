@@ -47,15 +47,15 @@ function TickerItem({ tickerCode, onButtonClick }) {
     >
       <h4 className={style.tickerItem__name}>{ticker.name}</h4>
       <div className={style.tickerItem__elem}>
-        <p>{ticker.price}&#36;</p>
+        <p className={style.tickerItem__elem__text}>{ticker.price}&#36;</p>
       </div>
       <div className={style.tickerItem__elem}>
-        <p>
+        <p className={style.tickerItem__elem__text}>
           {ticker.isIncrease ? '+' : '-'}
           {ticker.change}&#36;
         </p>
       </div>
-      <div className={style.TickerPrice__elem}>
+      <div className={style.TickerItem__elem}>
         <ChangePercentage tickerCode={tickerCode} />
       </div>
       <Button

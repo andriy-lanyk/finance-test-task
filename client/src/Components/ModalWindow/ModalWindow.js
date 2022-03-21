@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import moment from 'moment';
 
 import { tickerOperations, tickersSelectors } from '../../Redux/tickers';
 import style from './ModalWindow.module.css';
@@ -27,14 +28,13 @@ function ModalWindow({ tickerCode, onClose }) {
   };
 
   const getNormilizedTime = data => {
-    const arr = data.split('');
-    const time = data.slice(arr.indexOf('T') + 1, arr.indexOf('T') + 9);
-    const date = data.slice(0, arr.indexOf('T')).split('-').reverse().join('-');
+    const date = moment(data, moment.ISO_8601).format('DD.MM.YYYY');
+    const time = moment(data, moment.ISO_8601).format('LTS');
 
     return (
       <>
-        <p>{time} </p>
-        <p>{date}</p>
+        <p className={style.Modal__elem_minSize}>{time} </p>
+        <p className={style.Modal__elem_minSize}>{date}</p>
       </>
     );
   };
@@ -43,50 +43,45 @@ function ModalWindow({ tickerCode, onClose }) {
     <div className={style.Modal__backdrop} onClick={onBackdropClick}>
       <div
         className={`${style.Modal__content} ${
-          tickerOperations.isIncrease
-            ? style.Modal__content_increase
-            : style.Modal__content_decrease
+          ticker.isIncrease
+            ? style.Modal__content__increase
+            : style.Modal__content__decrease
         }`}
       >
         <h4 className={style.Modal__title}>{ticker.name}</h4>
-        <div className={style.Modal__wrapper}>
-          <div className={style.Modal__box}>{ticker.price}&#36;</div>
-          <div className={style.Modal__box}>
-            {ticker.isIncrease ? '+' : '-'}
-            {ticker.change}&#36;
-          </div>
-          <div className={style.Modal__box}>
-            <ChangePercentage tickerCode={tickerCode} />
-          </div>
-        </div>
-        <div className={style.Modal__wrapper}>
-          <div>
-            <p className={style.Modal__text}>Дивиденди:</p>
-            <div className={style.Modal__box + ' ' + style.Modal__elem}>
-              {ticker.dividend}%
+        <ul className={style.Modal__container}>
+          <li className={style.Modal__container__item}>
+            <p className={style.Modal__text}>Price:</p>
+            <div className={style.Modal__box}>{ticker.price}&#36;</div>
+          </li>
+          <li className={style.Modal__container__item}>
+            <p className={style.Modal__text}>Change:</p>
+            <div className={style.Modal__box}>
+              {ticker.isIncrease ? '+' : '-'}
+              {ticker.change}&#36;
             </div>
-          </div>
-          <div>
-            <p className={style.Modal__text}>Доход:</p>
-            <div className={style.Modal__box + ' ' + style.Modal__elem}>
-              {ticker.yield}%
+          </li>
+          <li className={style.Modal__container__item}>
+            <p className={style.Modal__text}>Change in percent:</p>
+            <div className={style.Modal__box}>
+              <ChangePercentage tickerCode={tickerCode} />
             </div>
-          </div>
-          <div>
-            <p className={style.Modal__text}>Последняя сделка:</p>
-            <div
-              className={
-                style.Modal__box +
-                ' ' +
-                style.Modal__elem +
-                ' ' +
-                style.Modal__elem_minSize
-              }
-            >
+          </li>
+          <li className={style.Modal__container__item}>
+            <p className={style.Modal__text}>Dividends:</p>
+            <div className={style.Modal__box}>{ticker.dividend}%</div>
+          </li>
+          <li className={style.Modal__container__item}>
+            <p className={style.Modal__text}>Revenue:</p>
+            <div className={style.Modal__box}>{ticker.yield}%</div>
+          </li>
+          <li className={style.Modal__container__item}>
+            <p className={style.Modal__text}>Last trade:</p>
+            <div className={`${style.Modal__box} ${style.Modal__box__time}`}>
               {getNormilizedTime(ticker.last_trade_time)}
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
     </div>
   );

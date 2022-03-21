@@ -7,7 +7,7 @@ import style from './TickersList.module.css';
 import TickerItem from '../TickerItem';
 import ModalWindow from '../ModalWindow';
 
-function TickersItem() {
+function TickersList() {
   const [tickerModalName, setTickerModalName] = useState(null);
 
   const tickersList = useSelector(tickersSelectors.getFilteredTickers);
@@ -26,18 +26,24 @@ function TickersItem() {
         <ModalWindow tickerCode={tickerModalName} onClose={onCloseModal} />
       )}
       <div className={style.tickers__container}>
-        <ul className={style.tickers__list}>
-          {tickersList.map(ticker => (
-            <TickerItem
-              key={ticker}
-              tickerCode={ticker}
-              onButtonClick={onButtonClick}
-            />
-          ))}
+        <ul>
+          {tickersList.length < 1 ? (
+            <li className={style.tickers__nothingFound}>
+              We don't have a company with a suitable name
+            </li>
+          ) : (
+            tickersList?.map(ticker => (
+              <TickerItem
+                key={ticker}
+                tickerCode={ticker}
+                onButtonClick={onButtonClick}
+              />
+            ))
+          )}
         </ul>
       </div>
     </>
   );
 }
 
-export default TickersItem;
+export default TickersList;

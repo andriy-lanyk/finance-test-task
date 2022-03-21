@@ -15,7 +15,7 @@ export default function ChangePercentage({ tickerCode }) {
 
   return (
     <div className={style.ChangePercentage}>
-      <span>
+      <span className={style.ChangePercentage}>
         {ticker.isIncrease ? (
           <ArrowUpwardIcon color="success" fontSize="small" />
         ) : (
