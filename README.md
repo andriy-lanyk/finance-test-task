@@ -1,4 +1,33 @@
+# React Test Task
 
+## Requirements
+
+I implemented a solution to display price tickers data on the UI in realtime.
+
+Price data is available from a locally running service. I have added some visualisations to indicate how prices have changed.
+
+I take some ideas how my application may look like on the [Google Finance](https://www.google.com/finance/) page.
+
+I implemented different kinds of functionality such as:
+
+- add visual effects to highlight positive or negative changes in the prices;
+- the possibility to switch on/off tickers by user (user can see more detail information about one of the tickers by click on button "details");
+- the possibility to specify interval time by user (usr can specify the data change interval time in special form);
+- the possibility to add/remove ticker from watching group (user can use filter which could help to receive one or few tickers in watching group, if ticker`s name includes entered letters);
+
+I use the next technologies:
+
+- React (with hooks)
+- Redux
+- Socket.io - to connect to the service
+- MaterialUI library and pure CSS
+- ESLint and Prettier
+
+## Run application
+
+If you would like to check that the service is working correctly and inspect the data it produces, you need only visit [my website deployed to Heroku ](https://price-ticker-service-front.herokuapp.com/)
+
+<!--
 # React Test Task
 
 ## Requirements
@@ -93,4 +122,4 @@ The tickers we use:
 2. Modify content of the folder `client`
 3. Modify content of the folder `server` - if you want to complete bonus tasks
 4. Commit and push your code to your repository
-5. Send us link to your repository
+5. Send us link to your repository -->
