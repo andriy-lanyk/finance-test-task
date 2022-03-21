@@ -1,11 +1,15 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-import { tickerOperations, tickersSelectors } from '../../Redux/tickers';
+import { tickersSelectors } from '../../Redux/tickers';
 import style from './ModalWindow.module.css';
 
 import ChangePercentage from '../ChangePercentage';
+import Button from '../Button';
+
+const modalRoot = document.querySelector('#modal-root');
 
 function ModalWindow({ tickerCode, onClose }) {
   const ticker = useSelector(state =>
@@ -14,18 +18,23 @@ function ModalWindow({ tickerCode, onClose }) {
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, []);
+  });
 
-  const handleKeyDown = ({ code }) => {
-    code === 'Escape' && onClose();
-  };
+  function handleKeyDown(e) {
+    if (e.code === 'Escape') {
+      onClose();
+    }
+  }
 
-  const onBackdropClick = ({ target, currentTarget }) => {
-    target === currentTarget && onClose();
-  };
+  function handleClickOnBackdrop(e) {
+    if (e.target === e.currentTarget) {
+      onClose();
+    }
+  }
 
   const getNormilizedTime = data => {
     const date = moment(data, moment.ISO_8601).format('DD.MM.YYYY');
@@ -39,8 +48,8 @@ function ModalWindow({ tickerCode, onClose }) {
     );
   };
 
-  return (
-    <div className={style.Modal__backdrop} onClick={onBackdropClick}>
+  return createPortal(
+    <div className={style.Modal__backdrop} onClick={handleClickOnBackdrop}>
       <div
         className={`${style.Modal__content} ${
           ticker.isIncrease
@@ -82,8 +91,14 @@ function ModalWindow({ tickerCode, onClose }) {
             </div>
           </li>
         </ul>
+        <Button
+          text="Close"
+          onClick={() => onClose()}
+          tickerCode={tickerCode}
+        />
       </div>
-    </div>
+    </div>,
+    modalRoot,
   );
 }
 

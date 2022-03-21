@@ -36,3 +36,18 @@
   font-size: 14px;
   line-height: 20px;
 }
+
+@media screen and (max-width: 480px) {
+  .tickerItem__container {
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  .tickerItem__name {
+    font-size: 14px;
+  }
+
+  .tickerItem__elem__text {
+    font-size: 12px;
+  }
+}

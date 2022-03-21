@@ -35,7 +35,8 @@ function TickerItem({ tickerCode, onButtonClick }) {
           }),
         );
     setCurrentPrice(ticker.price);
-  }, [ticker.price]);
+    // eslint-disable-next-line
+  }, [ticker.price, dispatch, tickerCode]);
 
   return (
     <div

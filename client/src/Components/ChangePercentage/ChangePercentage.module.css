@@ -3,3 +3,9 @@
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 480px) {
+  .ChangePercentage {
+    font-size: 13px;
+  }
+}

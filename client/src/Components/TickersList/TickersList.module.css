@@ -7,3 +7,9 @@
   text-align: center;
   color: red;
 }
+
+@media screen and (max-width: 500px) {
+  .tickers__container {
+    width: calc(100% - 10px);
+  }
+}

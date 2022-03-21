@@ -26,18 +26,20 @@ const drawerWidth = 260;
 const Main = styled('main', { shouldForwardProp: prop => prop !== 'open' })(
   ({ theme, open }) => ({
     flexGrow: 1,
-    padding: theme.spacing(3),
+    // padding: theme.spacing(3),
+    padding: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidth}px`,
+    // marginLeft: `-${drawerWidth}px`,
     ...(open && {
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
+      overflowX: 'clip',
     }),
   }),
 );
@@ -69,29 +71,56 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 function TickersView() {
   const theme = useTheme();
-  const [openFilter, setOpenFilter] = useState(false);
+
   const tickersList = useSelector(tickersSelectors.getFilteredTickers);
   const isFilterUsed = useSelector(tickersSelectors.getFilter);
 
-  const handleDrawerOpen = () => {
-    setOpenFilter(true);
+  const [state, setState] = useState({
+    left: false,
+  });
+
+  const toggleDrawer = (anchor, open) => event => {
+    setState({ ...state, [anchor]: open });
   };
 
-  const handleDrawerClose = () => {
-    setOpenFilter(false);
-  };
+  const list = anchor => (
+    <Box
+      sx={{
+        width: drawerWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: drawerWidth,
+          boxSizing: 'border-box',
+        },
+      }}
+      role="presentation"
+    >
+      <DrawerHeader>
+        Filter menu
+        <IconButton onClick={toggleDrawer(anchor, false)}>
+          {theme.direction === 'ltr' ? (
+            <ChevronLeftIcon />
+          ) : (
+            <ChevronRightIcon />
+          )}
+        </IconButton>
+      </DrawerHeader>
+      <Divider />
+      <Filter />
+    </Box>
+  );
 
   return (
     <Box sx={{ display: 'flex', height: '100%' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={openFilter}>
+      <AppBar position="fixed" open={false}>
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
-            onClick={handleDrawerOpen}
+            onClick={toggleDrawer('left', true)}
             edge="start"
-            sx={{ mr: 2, ...(openFilter && { display: 'none' }) }}
+            sx={{ mr: 2, ...(false && { display: 'none' }) }}
           >
             <MenuIcon />
           </IconButton>
@@ -100,33 +129,10 @@ function TickersView() {
           </Typography>
         </Toolbar>
       </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={openFilter}
-      >
-        <DrawerHeader>
-          Filter menu
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? (
-              <ChevronLeftIcon />
-            ) : (
-              <ChevronRightIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <Filter />
+      <Drawer open={state['left']} onClose={toggleDrawer('left', false)}>
+        {list('left')}
       </Drawer>
-      <Main open={openFilter}>
+      <Main open={false}>
         <DrawerHeader />
         {!isFilterUsed && tickersList.length < 1 ? (
           <Loader />

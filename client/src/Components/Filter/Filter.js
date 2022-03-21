@@ -15,7 +15,7 @@ const Filter = () => {
 
   return tickers.length !== 0 ? (
     <TextField
-      margin="none"
+      sx={{ margin: '20px' }}
       size="small"
       label="Find ticker by name"
       type="text"
@@ -25,8 +25,8 @@ const Filter = () => {
     />
   ) : (
     <TextField
+      sx={{ margin: '20px' }}
       disabled
-      margin="none"
       size="small"
       label="Find ticker by name"
       type="text"

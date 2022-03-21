@@ -8,7 +8,8 @@
   justify-content: center;
   align-items: center;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 1200;
+  z-index: 10;
+  transition: all 400ms ease-in-out;
 }
 
 .Modal__content {
@@ -19,6 +20,7 @@
   padding: 20px;
   box-shadow: none;
   transition: box-shadow 400ms ease-in-out;
+  text-align: center;
 }
 
 .Modal__content__increase {
@@ -68,4 +70,29 @@
 
 .Modal__elem_minSize {
   font-size: 12px;
+}
+
+@media screen and (max-width: 600px) {
+  .Modal__content {
+    max-width: 100vw;
+    max-height: 100vh;
+    width: 100%;
+  }
+
+  .Modal__text {
+    font-size: 9px;
+  }
+
+  .Modal__elem_minSize {
+    font-size: 9px;
+  }
+
+  .Modal__box {
+    width: 80px;
+    padding: 6px;
+  }
+
+  .Modal__box__time {
+    padding: 4.5px;
+  }
 }
